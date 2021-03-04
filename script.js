@@ -9,12 +9,19 @@ let photoArray = [];
 let ready = false;
 let totalImages = 0;
 let loadedImages = 0;
-
+let initialLoad = true;
 
 // apikey and url for unsplash API
 const count = 30;
 const apiKey = '4ZGNxLlOXnDqL8IrQTMQKd0SjZ5ra-aMQH1qk8KC_ec';
-const apiUrl = `https://api.unsplash.com/photos/random?client_id=${apiKey}&count=${count}`
+let apiUrl; 
+// load initialy five images first then load 30(for the sake of performance)
+if(initialLoad){
+    apiUrl =  `https://api.unsplash.com/photos/random?client_id=${apiKey}&count=5`;
+}else{
+    apiUrl = `https://api.unsplash.com/photos/random?client_id=${apiKey}&count=${count}`;
+}
+
 
 // check if all images were loaded
 const loadImage = () => {
@@ -23,6 +30,7 @@ const loadImage = () => {
         loader.hidden = true;
         ready = true;
         loadedImages = 0;
+        initialLoad = false;
     }
 }
 
